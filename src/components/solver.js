@@ -5,32 +5,33 @@ const Solver = ({ puzzle }) => {
   return (
     <FillsMostOfScreen>
       {puzzle.rows().map((row, rowIndex) => {
-        return <Row>
-          {row.map((cell, cellIndex) => {
-            let inside;
-            let onClick;
-            if (typeof cell !== 'number') {
-              onClick = () => puzzle.toggleOpening(rowIndex, cellIndex)
-              inside = <Opening line={cell}/>
-            } else {
-              inside = <Number>{cell}</Number>
-            }
+        return (
+          <Row>
+            {row.map((cell, cellIndex) => {
+              let inside;
+              let onClick;
+              if (typeof cell !== "number") {
+                onClick = () => puzzle.toggleOpening(rowIndex, cellIndex);
+                inside = <Opening line={cell} />;
+              } else {
+                inside = <Number>{cell}</Number>;
+              }
 
-            return <Cell onClick={onClick}>{inside}</Cell>
-          })
-          }
-        </Row>
+              return <Cell onClick={onClick}>{inside}</Cell>;
+            })}
+          </Row>
+        );
       })}
     </FillsMostOfScreen>
-  )
-}
+  );
+};
 
 const FillsMostOfScreen = styled.div`
   display: flex;
   flex-direction: column;
-  height: 65vMin;
-  width: 65vMin;
-`
+  height: 65vmin;
+  width: 65vmin;
+`;
 const Cell = styled.div`
   align-items: center;
 
@@ -45,14 +46,14 @@ const Cell = styled.div`
   justify-content: center;
 
   ${({ onClick }) => {
-  if (onClick) {
-    return `cursor: pointer;`
-  }
-}}
-`
+    if (onClick) {
+      return `cursor: pointer;`;
+    }
+  }}
+`;
 const Number = styled.div`
   flex: 1;
-`
+`;
 const Opening = styled.div`
   flex: 1;
   position: relative;
@@ -60,8 +61,8 @@ const Opening = styled.div`
 
   &:after {
     ${({ line }) => {
-  if (line === '|') {
-    return `
+      if (line === "|") {
+        return `
           background: black;
           content: "";
           height: 90%;
@@ -69,9 +70,9 @@ const Opening = styled.div`
           position: absolute;
           top: 5%;
           width: 2px;
-        `
-  } else if (line === '-') {
-    return `
+        `;
+      } else if (line === "-") {
+        return `
           background: black;
           content: "";
           position: absolute;
@@ -79,11 +80,11 @@ const Opening = styled.div`
           top: 50%;
           height: 2px;
           width: 90%;
-        `
+        `;
+      }
+    }}
   }
-}}
-  } 
-`
+`;
 
 const Row = styled.div`
   border-top: 1px solid black;
@@ -94,6 +95,6 @@ const Row = styled.div`
   display: flex;
   justify-content: center;
   align-items: stretch;
-`
+`;
 
 export default Solver;
