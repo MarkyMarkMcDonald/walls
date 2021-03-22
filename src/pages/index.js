@@ -50,7 +50,6 @@ const Stepper = ({ puzzleId, setPuzzleId, maxPuzzleId, minPuzzleId }) => {
 };
 
 const StepperContainer = styled.div`
-  margin-top: 64px;
   display: flex;
   justify-content: center;
 `;
@@ -62,11 +61,12 @@ const Switcher = styled.button`
 `;
 
 const Main = styled.main`
-  font-size: clamp(100%, 1rem + 3vw, 100vmin);
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  font-size: clamp(100%, 1rem + 3vw, 100vmin);
+  justify-content: space-evenly;
+  height: 85vh;
 `;
 
 export default IndexPage;
