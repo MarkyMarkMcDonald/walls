@@ -1,25 +1,19 @@
 import * as React from "react";
 import Solver from "../components/solver";
-import useLocalStorage from "@rehooks/local-storage";
+import useLocalStorage from "../hooks/useLocalStorage";
 import InitialPuzzles from "../data/initialPuzzles";
 import Puzzle from "../core/puzzle";
 import styled from "styled-components";
 
+const initialPuzzles = new InitialPuzzles();
+
 const IndexPage = () => {
-  const initialPuzzles = new InitialPuzzles();
-
   let [puzzleId, setPuzzleId] = useLocalStorage("github/MarkyMarkMcDonald/walls/currentPuzzle", 1);
-  let [puzzleData, setPuzzleData] = useLocalStorage(
-    `github/MarkyMarkMcdonald/walls/${puzzleId}`,
-    initialPuzzles.get(puzzleId)
-  );
-
-  const puzzle = new Puzzle(puzzleData, setPuzzleData);
 
   return (
     <Main>
       <title>Walls | Puzzle {puzzleId}</title>
-      <Solver puzzle={puzzle} />
+      <PuzzleLoader key={puzzleId} puzzleId={puzzleId} />
       <Stepper
         puzzleId={puzzleId}
         setPuzzleId={setPuzzleId}
@@ -29,6 +23,17 @@ const IndexPage = () => {
     </Main>
   );
 };
+
+const PuzzleLoader = ({puzzleId}) => {
+  let [puzzleData, setPuzzleData] = useLocalStorage(
+    `github/MarkyMarkMcdonald/walls/${puzzleId}`,
+    initialPuzzles.get(puzzleId)
+  );
+
+  const puzzle = new Puzzle(puzzleData, setPuzzleData);
+
+  return (<Solver puzzle={puzzle} />)
+}
 
 const Stepper = ({ puzzleId, setPuzzleId, maxPuzzleId, minPuzzleId }) => {
   return (
