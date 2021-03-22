@@ -36,13 +36,16 @@ const PuzzleLoader = ({puzzleId}) => {
 }
 
 const Stepper = ({ puzzleId, setPuzzleId, maxPuzzleId, minPuzzleId }) => {
+  let decreaseDisabled = puzzleId <= minPuzzleId;
+  let increaseDisabled = puzzleId >= maxPuzzleId;
+
   return (
     <StepperContainer>
-      <Switcher disabled={puzzleId <= minPuzzleId} onClick={() => setPuzzleId(puzzleId - 1)}>
+      <Switcher disabled={decreaseDisabled} onClick={() => setPuzzleId(puzzleId - 1)}>
         {"<"}
       </Switcher>
       {puzzleId}
-      <Switcher disabled={puzzleId >= maxPuzzleId} onClick={() => setPuzzleId(puzzleId + 1)}>
+      <Switcher disabled={increaseDisabled} onClick={() => setPuzzleId(puzzleId + 1)}>
         {">"}
       </Switcher>
     </StepperContainer>
